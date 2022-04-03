@@ -1,24 +1,31 @@
 import React, {
-    useState
+    useState,
+    useEffect
 } from 'react';
+import axios from 'axios';
 import { IList } from '../../interfaces/List';
 import { v4 as uuidv4 } from 'uuid';
 
 const CreateList = () => {
     const [ listName, setListName ] = useState<string>('');
     const [ listDescription, setListDescription ] = useState<string>('');
-    const [ completeList, setCompleteList ] = useState<IList>();
 
-    const handleSubmit = (e: any) => {
+    const sendListToBackEnd = ( completedList: IList ) => {
+        axios.post(`http://localhost:3001/lists`, completedList)
+            .then((res) => {
+                console.log(res.data);
+            })
+    };
+
+    const createListObject = (e: any) => {
         e.preventDefault();
         const id = uuidv4().replace(/-/g, "");
-        console.log(listName, listDescription, id);
-        let list = {
+        const listToAdd: IList = {
             name: listName,
             description: listDescription,
-            id
+            id: id
         };
-        setCompleteList(list);
+        sendListToBackEnd(listToAdd);
         setListName('');
         setListDescription('');
     };
@@ -27,7 +34,7 @@ const CreateList = () => {
         <section>
             <div>
                 <h1>CREATE A LIST</h1>
-                <form onSubmit={(e) => handleSubmit(e)}>
+                <form onSubmit={(e) => createListObject(e)}>
                     <label>Name</label>
                     <p>What would you like to name your list?</p>
                     <input
