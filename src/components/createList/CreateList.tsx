@@ -23,7 +23,8 @@ const CreateList = () => {
         const listToAdd: IList = {
             name: listName,
             description: listDescription,
-            id: id
+            id: id,
+            reminders: []
         };
         sendListToBackEnd(listToAdd);
         setListName('');
