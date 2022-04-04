@@ -9,8 +9,10 @@ const CreateList = () => {
     const [ listName, setListName ] = useState<string>('');
     const [ listDescription, setListDescription ] = useState<string>('');
 
+    console.log('the current host', host);
+
     const sendListToBackEnd = ( completedList: IList ) => {
-        axios.post(host, completedList)
+        axios.post(`${host}/lists`, completedList)
             .then((res) => {
                 console.log('item added', res.data);
             })
