@@ -2,6 +2,7 @@ import React, {
     useState,
 } from 'react';
 import axios from 'axios';
+import { host } from '../../config';
 import { IList } from '../../interfaces/List';
 
 const CreateList = () => {
@@ -9,7 +10,7 @@ const CreateList = () => {
     const [ listDescription, setListDescription ] = useState<string>('');
 
     const sendListToBackEnd = ( completedList: IList ) => {
-        axios.post(`http://localhost:3001/lists`, completedList)
+        axios.post(host, completedList)
             .then((res) => {
                 console.log('item added', res.data);
             })
