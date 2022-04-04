@@ -1,10 +1,14 @@
-import React from 'react'
+import React from 'react';
+import {
+  Link
+} from "react-router-dom";
 
 const Navbar = () => {
   return (
     <nav>
-        <button>Create a list</button>
-        <button>View lists</button>
+        <Link to="/createlist">Create list</Link>
+        <br />
+        <Link to="/viewlists">View lists</Link>
     </nav>
   )
 }

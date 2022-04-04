@@ -1,10 +1,8 @@
 import React, {
     useState,
-    useEffect
 } from 'react';
 import axios from 'axios';
 import { IList } from '../../interfaces/List';
-import { v4 as uuidv4 } from 'uuid';
 
 const CreateList = () => {
     const [ listName, setListName ] = useState<string>('');
@@ -13,17 +11,15 @@ const CreateList = () => {
     const sendListToBackEnd = ( completedList: IList ) => {
         axios.post(`http://localhost:3001/lists`, completedList)
             .then((res) => {
-                console.log(res.data);
+                console.log('item added', res.data);
             })
     };
 
     const createListObject = (e: any) => {
         e.preventDefault();
-        const id = uuidv4().replace(/-/g, "");
         const listToAdd: IList = {
             name: listName,
             description: listDescription,
-            id: id,
             reminders: []
         };
         sendListToBackEnd(listToAdd);
