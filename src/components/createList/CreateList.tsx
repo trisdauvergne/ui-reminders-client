@@ -2,6 +2,7 @@ import React, {
     useState,
 } from 'react';
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 import { host } from '../../config';
 import { IList } from '../../interfaces/List';
 
@@ -18,9 +19,11 @@ const CreateList = () => {
 
     const createListObject = (e: any) => {
         e.preventDefault();
+        const id = uuidv4().replace(/-/g, "");
         const listToAdd: IList = {
             name: listName,
             description: listDescription,
+            id,
             reminders: []
         };
         sendListToBackEnd(listToAdd);

@@ -28,8 +28,7 @@ const ViewLists = () => {
   } else {
     return (
       <section>
-          <h1>All lists</h1>
-          <h3>Your lists</h3>
+          <h1>Your lists</h1>
           {lists.map((list: IList, i: number) => <ListItem {...list} key={i}/>)}
       </section>
     )
