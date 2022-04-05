@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
 import { host } from '../../utils/config';
 import { IList } from '../../interfaces/List';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addListsToState } from '../../redux/listsSlice';
-import { changeModalVisibility, selectModal } from '../../redux/modalSlice';
+import ReminderModal from '../modals/reminderModal/ReminderModal';
 
 const ListItem = (list: IList) => {
-  const modalVisible = useSelector(selectModal);
+  const [ reminderModalVisible, setReminderModalVisible ] = useState(false);
     const dispatch = useDispatch();
 
     const refreshPage = async () => {
@@ -20,8 +20,7 @@ const ListItem = (list: IList) => {
 
     const addReminderToList = async () => {
       console.log('in add reminder to list function');
-      console.log('before', modalVisible);
-      dispatch(changeModalVisibility(true));
+      setReminderModalVisible(!reminderModalVisible);
     }
     
     const deleteList = async () => {
@@ -35,6 +34,7 @@ const ListItem = (list: IList) => {
 
     return (
       <div>
+          {reminderModalVisible && <ReminderModal {...list}/>}
           <h3>{list.name}</h3>
           <p>{list.description}</p>
           <p>ID: {list.id}</p>

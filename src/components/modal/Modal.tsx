@@ -2,13 +2,12 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectModal, changeModalVisibility } from '../../redux/modalSlice';
 
-
-const Modal = () => {
+const Modal: React.FC = ({children}) => {
     const modalVisible = useSelector(selectModal);
     const dispatch = useDispatch();
 
     const hideModal = () => {
-        dispatch(changeModalVisibility(false));
+        dispatch(changeModalVisibility(false))
     }
 
     if (modalVisible) {
@@ -16,6 +15,7 @@ const Modal = () => {
             <section>
                 <h1>Modal</h1>
                 <button onClick={hideModal}>Hide modal</button>
+                {children}
             </section>
         )
     } else {
@@ -26,11 +26,3 @@ const Modal = () => {
 }
 
 export default Modal;
-
-// export const Modal: React.FC = ({
-//     children,
-// }) => (
-//     <section>
-//         {children}
-//     </section>
-// );
