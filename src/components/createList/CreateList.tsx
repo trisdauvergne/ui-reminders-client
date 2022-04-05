@@ -3,18 +3,21 @@ import React, {
 } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { host } from '../../config';
+import { host } from '../../utils/config';
 import { IList } from '../../interfaces/List';
+import { useNavigate } from 'react-router-dom';
 
 const CreateList = () => {
     const [ listName, setListName ] = useState<string>('');
     const [ listDescription, setListDescription ] = useState<string>('');
+    const navigate = useNavigate();
 
-    const sendListToBackEnd = ( completedList: IList ) => {
-        axios.post(`${host}/lists`, completedList)
+    const sendListToBackEnd = async ( completedList: IList ) => {
+        await axios.post(`${host}/lists`, completedList)
             .then((res) => {
                 console.log('item added', res.data);
-            })
+            });
+        navigate('/viewlists');
     };
 
     const createListObject = (e: any) => {

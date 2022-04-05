@@ -1,15 +1,28 @@
 import React from 'react';
 import axios from 'axios';
-import { host } from '../../config';
+import { host } from '../../utils/config';
 import { IList } from '../../interfaces/List';
+import { useDispatch } from 'react-redux';
+import { addListsToState } from '../../redux/listsSlice';
 
 const ListItem = (list: IList) => {
-    const deleteList = () => {
+    const dispatch = useDispatch();
+
+    const refreshPage = async () => {
+      await axios.get(`${host}/lists`)
+      .then(res => {
+        const listData = res.data;
+        dispatch(addListsToState(listData));
+      })
+    };
+    
+    const deleteList = async () => {
       console.log('in deleteList', list, `${host}/${list.id}`);
-      axios.delete(`${host}/lists/${list.id}`)
+      await axios.delete(`${host}/lists/${list.id}`)
         .then(() => {
           console.log('Post deleted');
-        })
+        });
+      refreshPage();
     };
 
     return (

@@ -2,9 +2,15 @@ import axios from 'axios';
 import React, {
     useEffect,
 } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectLists, addListsToState } from '../../redux/listsSlice';
-import { host } from '../../config';
+import {
+  useSelector,
+  useDispatch
+} from 'react-redux';
+import {
+  selectLists,
+  addListsToState
+} from '../../redux/listsSlice';
+import { host } from '../../utils/config';
 import { IList } from '../../interfaces/List';
 import ListItem from '../listItem/ListItem';
 

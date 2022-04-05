@@ -7,7 +7,3 @@ export interface IList {
     _id?: string,
     reminders?: IReminder[] | [],
 }
-
-// export interface IListsState {
-//     lists: IList[]
-// };
