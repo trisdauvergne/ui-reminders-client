@@ -1,35 +1,37 @@
 import axios from 'axios';
 import React, {
-    useState,
-    useEffect
+    useEffect,
 } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectLists, addListsToState } from '../../redux/listsSlice';
 import { host } from '../../config';
 import { IList } from '../../interfaces/List';
 import ListItem from '../listItem/ListItem';
 
 const ViewLists = () => {
-  const [ lists, setLists ] = useState<IList[]>([]);
+    const lists = useSelector(selectLists);
+    const dispatch = useDispatch();
 
   useEffect(() => {
     axios.get(`${host}/lists`)
     .then(res => {
       const listData = res.data;
-      console.log('in viewlists useEffect', listData);
-      setLists(listData);
+      dispatch(addListsToState(listData));
     })
   }, []);
 
-  if (lists.length === 0) {
+  if (lists.length > 0) {
     return (
       <section>
-        <h1>You have no lists</h1>
+          <h1>Your lists</h1>
+          {/* {lists.map(list => <p>{list.name}</p>)} */}
+          {lists.map((list: IList, i: number) => <ListItem {...list} key={i}/>)}
       </section>
     )
   } else {
     return (
       <section>
-          <h1>Your lists</h1>
-          {lists.map((list: IList, i: number) => <ListItem {...list} key={i}/>)}
+        <h1>You have no lists</h1>
       </section>
     )
   }
