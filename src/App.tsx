@@ -11,6 +11,7 @@ import CreateList from './components/createList/CreateList';
 import Header from './components/header/Header';
 import Navbar from './components/navbar/Navbar';
 import ViewLists from './components/viewLists/ViewLists';
+import Modal from './components/modal/Modal';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/viewlists" element={<ViewLists />} />
             <Route path="/createlist" element={<CreateList />} />
           </Routes>
+          <Modal />
         </div>
       </BrowserRouter>
     </Provider>
