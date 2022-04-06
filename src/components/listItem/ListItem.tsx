@@ -37,7 +37,7 @@ const ListItem = (list: IList) => {
 
     const sendReminderToBackEnd = async (reminderToAdd: IReminder, listid: string) => {
       console.log('sending to backend', reminderToAdd);
-      await axios.post(`${host}/lists/${listid}`, reminderToAdd)
+      await axios.post(`${host}/reminders/${listid}`, reminderToAdd)
         .then(res => {
           console.log(res.data, ' added');
         });
@@ -53,7 +53,8 @@ const ListItem = (list: IList) => {
         id,
         notes: []
       };
-      sendReminderToBackEnd(reminderToAdd, list.id);
+      const listItemObjectId = list.id;
+      sendReminderToBackEnd(reminderToAdd, listItemObjectId);
       setReminder('');
       setReminderModalVisible(false);
     }

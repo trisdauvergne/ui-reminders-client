@@ -27,7 +27,7 @@ const CreateList = () => {
             name: listName,
             description: listDescription,
             id,
-            reminders: []
+            // reminders: []
         };
         sendListToBackEnd(listToAdd);
         setListName('');
