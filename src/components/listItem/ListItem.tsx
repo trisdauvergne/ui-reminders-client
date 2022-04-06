@@ -13,6 +13,7 @@ import Modal from '../modal/Modal';
 import { v4 as uuidv4 } from 'uuid';
 
 const ListItem = (list: IList) => {
+  console.log('in listitem: list', list);
     const [ reminderModalVisible, setReminderModalVisible ] = useState(false);
     const [ reminder, setReminder ] = useState<string>('');
     const dispatch = useDispatch();
@@ -29,13 +30,19 @@ const ListItem = (list: IList) => {
       console.log('in deleteList', list, `${host}/${list.id}`);
       await axios.delete(`${host}/lists/${list.id}`)
         .then(() => {
-          console.log('Post deleted');
+          console.log('List deleted');
         });
       refreshPage();
     };
 
-    const sendReminderToBackEnd = (reminderToAdd: IReminder) => {
+    const sendReminderToBackEnd = async (reminderToAdd: IReminder, listid: string) => {
       console.log('sending to backend', reminderToAdd);
+      await axios.post(`${host}/lists/${listid}`, reminderToAdd)
+        .then(res => {
+          console.log(res.data, ' added');
+        });
+      console.log('item added to array');
+      refreshPage();
     }
 
     const createReminderObject = (e: any) => {
@@ -46,7 +53,7 @@ const ListItem = (list: IList) => {
         id,
         notes: []
       };
-      sendReminderToBackEnd(reminderToAdd);
+      sendReminderToBackEnd(reminderToAdd, list.id);
       setReminder('');
       setReminderModalVisible(false);
     }

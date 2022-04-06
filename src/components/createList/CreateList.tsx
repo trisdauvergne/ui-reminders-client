@@ -64,4 +64,4 @@ const CreateList = () => {
     )
 }
 
-export default CreateList
+export default CreateList;
