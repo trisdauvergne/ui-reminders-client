@@ -3,8 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     changeReminderModalVisibility,
-    selectReminderModal,
-    // selectList
 } from '../../redux/modalSlice';
 import {
     addListsToState,
@@ -18,7 +16,6 @@ import '../modal/modal.scss';
 const ModalAddReminder = () => {
     const [ reminder, setReminder ] = useState('');
     const list = useSelector(selectSavedList);
-    const reminderModalVisible = useSelector(selectReminderModal)
     const dispatch = useDispatch();
 
     const refreshPage = async () => {

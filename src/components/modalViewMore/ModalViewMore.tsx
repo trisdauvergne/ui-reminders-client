@@ -16,8 +16,7 @@ import Reminder from '../reminder/Reminder';
 const ModalViewMore = () => {
     const list = useSelector(selectSavedList);
     const dispatch = useDispatch();
-    console.log('in modalviewmore', list);
-
+    
     const closeViewMoreModal = () => {
         dispatch(changeViewMoreModalVisibility(false));
     };
@@ -34,4 +33,4 @@ const ModalViewMore = () => {
     )
 }
 
-export default ModalViewMore
+export default ModalViewMore;
