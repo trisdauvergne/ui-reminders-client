@@ -13,10 +13,23 @@ const initialListsState: IListsState = {
     lists: []
 };
 
+interface IListContent {
+    list: IList
+};
+
+const initialListState: IListContent = {
+    list: {
+        name: '',
+        description: '',
+        id: '',
+    }
+};
+
 export const ListsSlice = createSlice({
     name: 'lists',
     initialState: {
-        initialListsState
+        initialListsState,
+        initialListState
     },
     reducers: {
         addListsToState: (state, action: PayloadAction<any>) => {
@@ -25,14 +38,20 @@ export const ListsSlice = createSlice({
         clearListState: (state) => {
             state.initialListsState.lists = [];
         },
+        saveListToState: (state, action: PayloadAction<any>) => {
+            state.initialListState.list = action.payload
+        },
     }
 });
 
 export const {
     addListsToState,
-    clearListState
+    clearListState,
+    saveListToState
 } = ListsSlice.actions;
 
 export const selectLists = (state: RootState) => state.lists.initialListsState.lists;
+
+export const selectSavedList = (state: RootState) => state.lists.initialListState.list;
 
 export default ListsSlice.reducer;

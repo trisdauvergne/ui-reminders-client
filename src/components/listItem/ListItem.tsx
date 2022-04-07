@@ -4,19 +4,35 @@ import React, {
 import axios from 'axios';
 import { host } from '../../utils/config';
 import { IList } from '../../interfaces/List';
-import { IReminder } from '../../interfaces/Reminder';
+// import { IReminder } from '../../interfaces/Reminder';
 import {
   useDispatch,
+  useSelector
 } from 'react-redux';
 import { addListsToState } from '../../redux/listsSlice';
-import Modal from '../modal/Modal';
+import {
+  storeListToShare,
+  selectList,
+  selectViewMoreModal,
+  selectReminderModal,
+  changeReminderModalVisibility,
+  changeViewMoreModalVisibility
+} from '../../redux/modalSlice';
+// import Modal from '../modal/Modal';
 import { v4 as uuidv4 } from 'uuid';
+import './listitem.scss';
+import ModalAddReminder from '../modalAddReminder/ModalAddReminder';
+import ModalViewMore from '../modalViewMore/ModalViewMore';
 
 const ListItem = (list: IList) => {
-  console.log('in listitem: list', list);
-    const [ reminderModalVisible, setReminderModalVisible ] = useState(false);
-    const [ reminder, setReminder ] = useState<string>('');
-    const dispatch = useDispatch();
+  
+  // const [ reminderModalVisible, setReminderModalVisible ] = useState(false);
+  // const [ viewMoreModalVisible, setViewMoreModalVisible ] = useState(false);
+  // const [ reminder, setReminder ] = useState<string>('');
+  // const listContent = useSelector(selectList);
+  const reminderModalVisible = useSelector(selectReminderModal);
+  const viewMoreModalVisible = useSelector(selectViewMoreModal);
+  const dispatch = useDispatch();
 
     const refreshPage = async () => {
       await axios.get(`${host}/lists`)
@@ -35,62 +51,62 @@ const ListItem = (list: IList) => {
       refreshPage();
     };
 
-    const sendReminderToBackEnd = async (reminderToAdd: IReminder, listid: string) => {
-      console.log('sending to backend', reminderToAdd);
-      await axios.post(`${host}/reminders/${listid}`, reminderToAdd)
-        .then(res => {
-          console.log(res.data, ' added');
-        });
-      console.log('item added to array');
-      refreshPage();
-    }
+    // const reminderModalJSX = 
+    //   <>
+    //     <h1>Add a reminder to {list.name}</h1>
+    //     <p>{list.id}</p>
+    //     <form onSubmit={(e) => createReminderObject(e)}>
+    //       <label>Description</label>
+    //       <p>Describe your reminder</p>
+    //       <input
+    //         type="text"
+    //         name="reminder"
+    //         onChange={e => setReminder(e.target.value)}
+    //         value={reminder}
+    //       />
+    //       <button type="submit">Add reminder</button>
+    //     </form>
+    //     <button onClick={() => setReminderModalVisible(false)}>Hide modal</button>
+    //   </>
+    // ;
 
-    const createReminderObject = (e: any) => {
-      e.preventDefault();
-      const id = uuidv4().replace(/-/g, "");
-      const reminderToAdd: IReminder = {
-        description: reminder,
-        id,
-        notes: []
-      };
-      const listItemObjectId = list.id;
-      sendReminderToBackEnd(reminderToAdd, listItemObjectId);
-      setReminder('');
-      setReminderModalVisible(false);
-    }
+    // const viewMoreJSX = 
+    // <>
+    //   <h1>View moreeeee</h1>
+    //   <p>Reminders: {list.reminders && list.reminders.length > 0 ? `There are ${list.reminders.length} reminders in your list` : `No reminders`}</p>
+    //   {list.reminders!.map(reminder => <>
+    //     <p>{reminder.description}</p>
+    //     {reminder.completed ? <p>Finished</p> : <p>To be completed</p>}
+    //     <button>Mark as complete</button>
+    //   </>
+    //   )}
+    //   <button onClick={() => setViewMoreModalVisible(false)}>Hide modal</button>
+    // </>
+    
+    const showReminderModal = () => {
+      dispatch(storeListToShare(list));
+      dispatch(changeReminderModalVisibility(true));
+    };
 
-    const modalJsx = 
-      <>
-        <h1>Add a reminder to {list.name}</h1>
-        <p>{list.id}</p>
-        <form onSubmit={(e) => createReminderObject(e)}>
-          <label>Description</label>
-          <p>Describe your reminder</p>
-          <input
-            type="text"
-            name="reminder"
-            onChange={e => setReminder(e.target.value)}
-            value={reminder}
-          />
-          <button type="submit">Add reminder</button>
-        </form>
-        <button onClick={() => setReminderModalVisible(false)}>Hide modal</button>
-      </>
-    ;
+    const showViewMoreModal = () => {
+      console.log('in showViewMoreModal');
+      dispatch(storeListToShare(list));
+      dispatch(changeViewMoreModalVisibility(true));
+    }
 
     return (
-      <div>
-        {reminderModalVisible && <Modal children={modalJsx} />}
+      <section className="list">
+        {viewMoreModalVisible && <ModalViewMore />}
           <h3>{list.name}</h3>
           <p>{list.description}</p>
           <p>ID: {list.id}</p>
           <button>Hide completed</button>
-          <button onClick={() => setReminderModalVisible(true)}>Add reminder to {list.name}</button>
+          <button onClick={showReminderModal}>Add reminder</button>
           <button onClick={deleteList}>Delete {list.name}</button>
           <p>Reminders: {list.reminders && list.reminders.length > 0 ? `There are ${list.reminders.length} reminders in your list` : `No reminders`}</p>
-          <button>View more</button>
+          <button onClick={showViewMoreModal}>View more</button>
           <button>Delete reminder</button>
-      </div>
+      </section>
     )
 }
 

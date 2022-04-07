@@ -1,7 +1,6 @@
 import axios from 'axios';
-import React, {
-    useEffect,
-} from 'react';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   useSelector,
   useDispatch
@@ -12,11 +11,10 @@ import {
 } from '../../redux/listsSlice';
 import { host } from '../../utils/config';
 import { IList } from '../../interfaces/List';
-import ListItem from '../listItem/ListItem';
 
 const ViewLists = () => {
-    const lists = useSelector(selectLists);
-    const dispatch = useDispatch();
+  const lists = useSelector(selectLists);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios.get(`${host}/lists`)
@@ -30,14 +28,15 @@ const ViewLists = () => {
     return (
       <section>
           <h1>Your lists</h1>
-          {/* {lists.map(list => <p>{list.name}</p>)} */}
-          {lists.map((list: IList, i: number) => <ListItem {...list} key={i}/>)}
+          {lists.map((list: IList, i: number) => 
+            <Link to={`/viewlist/${list.id}`}><button>{list.name}</button></Link>)
+          }
       </section>
     )
   } else {
     return (
       <section>
-        <h1>You have no lists</h1>
+        <h1>You currently have no lists</h1>
       </section>
     )
   }
