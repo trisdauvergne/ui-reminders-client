@@ -25,12 +25,6 @@ import ModalAddReminder from '../modalAddReminder/ModalAddReminder';
 import ModalViewMore from '../modalViewMore/ModalViewMore';
 
 const ListItem = (list: IList) => {
-  
-  // const [ reminderModalVisible, setReminderModalVisible ] = useState(false);
-  // const [ viewMoreModalVisible, setViewMoreModalVisible ] = useState(false);
-  // const [ reminder, setReminder ] = useState<string>('');
-  // const listContent = useSelector(selectList);
-  const reminderModalVisible = useSelector(selectReminderModal);
   const viewMoreModalVisible = useSelector(selectViewMoreModal);
   const dispatch = useDispatch();
 

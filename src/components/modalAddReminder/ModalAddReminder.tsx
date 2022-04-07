@@ -22,11 +22,12 @@ const ModalAddReminder = () => {
     const dispatch = useDispatch();
 
     const refreshPage = async () => {
+        console.log('in refresh page');
         await axios.get(`${host}/lists`)
-        .then(res => {
-          const listData = res.data;
-          dispatch(addListsToState(listData));
-        })
+            .then(res => {
+                const listData = res.data;
+                dispatch(addListsToState(listData));
+            })
       };
 
     const closeAddReminderModal = () => {
@@ -38,8 +39,8 @@ const ModalAddReminder = () => {
             .then(res => {
                 console.log('reminder added', res.data)
             })
-            refreshPage();
-            closeAddReminderModal();
+        refreshPage();
+        closeAddReminderModal();
     };
 
     const createReminderObject = (e: FormEvent) => {

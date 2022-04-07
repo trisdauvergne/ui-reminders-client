@@ -29,7 +29,7 @@ const ViewLists = () => {
       <section>
           <h1>Your lists</h1>
           {lists.map((list: IList, i: number) => 
-            <Link to={`/viewlist/${list.id}`}><button>{list.name}</button></Link>)
+            <Link to={`/viewlist/${list.id}`} key={i}><button>{list.name}</button></Link>)
           }
       </section>
     )
