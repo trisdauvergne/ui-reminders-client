@@ -4,8 +4,10 @@ import React, {
 } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
     changeReminderModalVisibility,
+    changeViewMoreModalVisibility,
 } from '../../redux/modalSlice';
 import {
     addListsToState,
@@ -20,7 +22,12 @@ const ModalAddReminder = () => {
     const [ reminder, setReminder ] = useState('');
     const list = useSelector(selectSavedList);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
+    
+    const closeAddReminderModal = () => {
+        dispatch(changeReminderModalVisibility(false));
+    };
     const refreshPage = async () => {
         console.log('in refresh page');
         await axios.get(`${host}/lists`)
@@ -28,11 +35,9 @@ const ModalAddReminder = () => {
                 const listData = res.data;
                 dispatch(addListsToState(listData));
             })
+        closeAddReminderModal();
+        dispatch(changeViewMoreModalVisibility(true));
       };
-
-    const closeAddReminderModal = () => {
-        dispatch(changeReminderModalVisibility(false));
-    };
 
     const sendReminderToBackEnd = async (reminderToAdd: IReminder) => {
         await axios.post(`${host}/reminders/${list.id}`, reminderToAdd)
