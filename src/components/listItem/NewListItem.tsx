@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { host } from '../../utils/config';
-import { useParams } from 'react-router-dom';
+import {
+    useParams,
+    useNavigate
+} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     saveListToState,
     selectSavedList,
     // selectLists,
-    // addListsToState
+    addListsToState
 } from '../../redux/listsSlice';
 import {
     selectViewMoreModal,
@@ -23,6 +26,7 @@ const NewListItem = () => {
     const viewMoreModal = useSelector(selectViewMoreModal);
     const addReminderModal = useSelector(selectReminderModal);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`${host}/lists/${id}`)
@@ -40,6 +44,25 @@ const NewListItem = () => {
         dispatch(changeViewMoreModalVisibility(true));
     };
 
+    const refreshPage = async () => {
+        console.log('in refresh page');
+        await axios.get(`${host}/lists`)
+            .then(res => {
+                const listData = res.data;
+                dispatch(addListsToState(listData));
+            })
+    };
+
+    const deleteList = async () => {
+        console.log('in deleteList', list, `${host}/${list.id}`);
+        await axios.delete(`${host}/lists/${list.id}`)
+            .then(() => {
+                console.log('List deleted');
+            });
+        refreshPage();
+        navigate('/viewlists');
+    };
+
     if (list) {
         return (
             <div>
@@ -50,7 +73,7 @@ const NewListItem = () => {
                 <p>ID: {list.id}</p>
                 {list.reminders && list.reminders.length > 0 && <p>There are {list.reminders.length} reminders</p>}
                 <button onClick={showAddReminderModal}>Add a reminder</button>
-                <button>Delete list</button>
+                <button onClick={deleteList}>Delete list</button>
                 <button onClick={showViewMoreModal}>View more</button>
             </div>
         )
