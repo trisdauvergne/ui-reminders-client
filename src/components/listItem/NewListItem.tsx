@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
+import{ useEffect } from 'react';
 import axios from 'axios';
 import { host } from '../../utils/config';
 import {
     useParams,
     useNavigate
 } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import {
+    useSelector,
+    useDispatch
+} from 'react-redux';
 import {
     saveListToState,
     selectSavedList,
@@ -20,12 +23,14 @@ import ModalAddReminder from '../modalAddReminder/ModalAddReminder';
 import ModalViewMore from '../modalViewMore/ModalViewMore';
 
 const NewListItem = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const { id } = useParams();
+    
     const list = useSelector(selectSavedList);
     const viewMoreModal = useSelector(selectViewMoreModal);
     const addReminderModal = useSelector(selectReminderModal);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`${host}/lists/${id}`)

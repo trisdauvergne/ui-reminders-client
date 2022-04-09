@@ -14,8 +14,9 @@ import { IReminder } from '../../interfaces/Reminder';
 import Reminder from '../reminder/Reminder';
 
 const ModalViewMore = () => {
-    const list = useSelector(selectSavedList);
     const dispatch = useDispatch();
+    
+    const list = useSelector(selectSavedList);
     
     const closeViewMoreModal = () => {
         dispatch(changeViewMoreModalVisibility(false));
@@ -24,11 +25,11 @@ const ModalViewMore = () => {
     return (
         <div className="modal">
             <h1>{list.name}</h1>
+            <button onClick={closeViewMoreModal}>Close modal</button>
             <p>Description: {list.description}</p>
             {list.reminders && list.reminders.length > 0 && list.reminders.map((reminder: IReminder, i: number) => 
                 <Reminder key={i} {...reminder} />
             )}
-            <button onClick={closeViewMoreModal}>Close modal</button>
         </div>
     )
 }

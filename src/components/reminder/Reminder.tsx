@@ -10,6 +10,9 @@ const Reminder = (reminder: IReminder) => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const listId = id;
+    const reminderId = reminder.id;
+
+    console.log('in reminder', reminder);
 
     const refreshList = async () => {
         console.log('in refresh lists');
@@ -19,10 +22,17 @@ const Reminder = (reminder: IReminder) => {
                 const updatedList = res.data[0];
                 dispatch(saveListToState(updatedList));
             })
-    }
+    };
+
+    const markAsDone = async () => {
+        await axios.post(`${host}/reminders/completed/${reminderId}`, { listId })
+            .then(res => {
+                console.log('in markasdone', res.data);
+            })
+    };
 
     const deleteReminder = async () => {
-        const reminderId = reminder.id;
+        console.log('in delete reminder');
         await axios.post(`${host}/reminders/delete/${reminderId}`, { listId })
             .then(res => console.log(`Reminder with ID ${res.data} deleted`))
         refreshList();
@@ -31,6 +41,8 @@ const Reminder = (reminder: IReminder) => {
     return (
         <section>
             <p>{reminder.description}</p>
+            <p>{reminder.completed ? 'Done' : 'Not done'}</p>
+            <button onClick={markAsDone}>Done</button>
             <button onClick={deleteReminder}>Delete reminder</button>
         </section>
     )
