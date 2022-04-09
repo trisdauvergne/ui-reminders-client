@@ -11,7 +11,7 @@ import CreateList from './components/createList/CreateList';
 import Header from './components/header/Header';
 import Navbar from './components/navbar/Navbar';
 import ViewLists from './components/viewLists/ViewLists';
-import NewListItem from './components/listItem/NewListItem';
+import ListItem from './components/listItem/ListItem';
 
 const App = () => {
   return (
@@ -23,7 +23,7 @@ const App = () => {
           <Routes>
             <Route path="/viewlists" element={<ViewLists />} />
             <Route path="/createlist" element={<CreateList />} />
-            <Route path="/viewlist/:id" element={<NewListItem />} /> 
+            <Route path="/viewlist/:id" element={<ListItem />} /> 
           </Routes>
         </div>
       </BrowserRouter>
