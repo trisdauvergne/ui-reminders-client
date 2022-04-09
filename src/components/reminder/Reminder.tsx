@@ -12,13 +12,10 @@ const Reminder = (reminder: IReminder) => {
     const listId = id;
     const reminderId = reminder.id;
 
-    console.log('in reminder', reminder);
-
     const refreshList = async () => {
-        console.log('in refresh lists');
         await axios.get(`${host}/lists/${listId}`)
             .then(res => {
-                console.log('in refresh list', res.data);
+                // console.log('in refresh list', res.data);
                 const updatedList = res.data[0];
                 dispatch(saveListToState(updatedList));
             })
@@ -26,15 +23,27 @@ const Reminder = (reminder: IReminder) => {
 
     const markAsDone = async () => {
         await axios.post(`${host}/reminders/completed/${reminderId}`, { listId })
-            .then(res => {
-                console.log('in markasdone', res.data);
-            })
+            // .then(res => console.log('in markasdone', res.data))
+        refreshList();
+    };
+
+    const markAsToDo = async () => {
+        await axios.post(`${host}/reminders/incomplete/${reminderId}`, { listId })
+        refreshList();
+    };
+
+    const changeStatus = () => {
+        if (reminder.completed === false) {
+            markAsDone();
+        } else {
+            markAsToDo();
+        };
     };
 
     const deleteReminder = async () => {
         console.log('in delete reminder');
         await axios.post(`${host}/reminders/delete/${reminderId}`, { listId })
-            .then(res => console.log(`Reminder with ID ${res.data} deleted`))
+            // .then(res => console.log(`Reminder with ID ${res.data} deleted`))
         refreshList();
     };
 
@@ -42,7 +51,7 @@ const Reminder = (reminder: IReminder) => {
         <section>
             <p>{reminder.description}</p>
             <p>{reminder.completed ? 'Done' : 'Not done'}</p>
-            <button onClick={markAsDone}>Done</button>
+            <button onClick={changeStatus}>{!reminder.completed ? 'Done' : 'Undo'}</button>
             <button onClick={deleteReminder}>Delete reminder</button>
         </section>
     )
