@@ -1,0 +1,18 @@
+@import '../../styles/spacing';
+@import '../../styles/font';
+
+.create-list {
+    justify-self: center;
+    display: grid;
+    text-align: center;
+    margin-top: $big-space;
+}
+
+.create-list__form > p {
+    margin-bottom: $small-space;
+    font-style: italic;
+}
+
+// .create-list__form > button {
+//     @include btn-style;
+// }

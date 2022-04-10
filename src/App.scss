@@ -1,4 +1,5 @@
 @import './styles/font';
+@import './styles/spacing';
 
 * {
   padding: 0;
@@ -25,14 +26,37 @@
 
 a {
   @include nav-text;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 600px) {
   a {
-    font-size: 6vw;
+    font-size: 1.5rem;
   }
 }
 
-.body {
-  background-color: lavender;
+label {
+  display: block;
+  @include sub-heading;
+}
+
+p {
+  @include body-text;
+}
+
+input {
+  @include body-text;
+  margin-bottom: $big-space;
+}
+
+button {
+  @include btn-style;
+}
+
+button:hover {
+  box-shadow: 2px 2px lightgrey;
 }

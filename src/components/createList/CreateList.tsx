@@ -1,11 +1,13 @@
 import {
     useState,
+    FormEvent,
 } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { host } from '../../utils/config';
 import { IList } from '../../interfaces/List';
 import { useNavigate } from 'react-router-dom';
+import './createlist.scss';
 
 const CreateList = () => {
     const [ listName, setListName ] = useState<string>('');
@@ -20,14 +22,13 @@ const CreateList = () => {
         navigate('/viewlists');
     };
 
-    const createListObject = (e: any) => {
+    const createListObject = (e: FormEvent) => {
         e.preventDefault();
         const id = uuidv4().replace(/-/g, "");
         const listToAdd: IList = {
             name: listName,
             description: listDescription,
             id,
-            // reminders: []
         };
         sendListToBackEnd(listToAdd);
         setListName('');
@@ -35,31 +36,29 @@ const CreateList = () => {
     };
 
     return (
-        <section className="body">
-            <div>
-                <h1>CREATE A LIST</h1>
-                <form onSubmit={(e) => createListObject(e)}>
-                    <label>Name</label>
-                    <p>What would you like to name your list?</p>
-                    <input
-                        type="text"
-                        name="list_name"
-                        onChange={e => setListName(e.target.value)}
-                        value={listName}
-                    />
-                    <br />
-                    <label>Description</label>
-                    <p>A few words to describe your list</p>
-                    <input
-                        type="text"
-                        name="list_description"
-                        onChange={e => setListDescription(e.target.value)}
-                        value={listDescription}
-                    />
-                    <br />
-                    <button type="submit">Create list</button>
-                </form>
-            </div>
+        <section className="body create-list">
+            {/* <h2>CREATE A LIST</h2> */}
+            <form className="create-list__form" onSubmit={(e) => createListObject(e)}>
+                <label>Name</label>
+                <p>What would you like to name your list?</p>
+                <input
+                    type="text"
+                    name="list_name"
+                    onChange={e => setListName(e.target.value)}
+                    value={listName}
+                />
+                <br />
+                <label>Description</label>
+                <p>A few words to describe your list</p>
+                <input
+                    type="text"
+                    name="list_description"
+                    onChange={e => setListDescription(e.target.value)}
+                    value={listDescription}
+                />
+                <br />
+                <button type="submit">Create list</button>
+            </form>
         </section>
     )
 }

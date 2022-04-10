@@ -8,7 +8,7 @@ const Navbar = () => {
   return (
     <nav className="nav">
       <div className="nav__container">
-          <Link to="/createlist">Create list</Link>
+          <Link to="/createlist">Create a list</Link>
           <Link to="/viewlists">View lists</Link>
       </div>
     </nav>
