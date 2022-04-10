@@ -2,13 +2,15 @@ import React from 'react';
 import {
   Link
 } from "react-router-dom";
+import './navbar.scss';
 
 const Navbar = () => {
   return (
-    <nav>
-        <Link to="/createlist">Create list</Link>
-        <br />
-        <Link to="/viewlists">View lists</Link>
+    <nav className="nav">
+      <div className="nav__container">
+          <Link to="/createlist">Create list</Link>
+          <Link to="/viewlists">View lists</Link>
+      </div>
     </nav>
   )
 }

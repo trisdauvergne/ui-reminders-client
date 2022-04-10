@@ -1,11 +1,18 @@
 @import '../../styles/font';
+@import '../../styles/spacing';
+
+header {
+  display: grid;
+  place-items: center;
+  border-bottom: 1px solid black;
+}
 
 .header {
-    @include header-style;
+  @include header-style;
 }
 
 @media (max-width: 425px) {
-    .header {
-      font-size: 20vw;
-    }
+  .header {
+    font-size: 20vw;
   }
+}

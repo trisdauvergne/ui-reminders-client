@@ -69,7 +69,7 @@ const NewListItem = () => {
 
     if (list) {
         return (
-            <div>
+            <section className="body">
                 {addReminderModal && <ModalAddReminder />}
                 {viewMoreModal && <ModalViewMore />}
                 <h1>{list.name}</h1>
@@ -79,7 +79,7 @@ const NewListItem = () => {
                 <button onClick={showAddReminderModal}>Add a reminder</button>
                 <button onClick={deleteList}>Delete list</button>
                 <button onClick={showViewMoreModal}>View more</button>
-            </div>
+            </section>
         )
     } else {
         return (

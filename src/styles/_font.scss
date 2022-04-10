@@ -4,6 +4,13 @@
     font-family: 'Old Standard TT', serif;
     font-weight: 700;
     text-transform: uppercase;
-    text-align: center;
     font-size: 10vw;
 };
+
+@mixin nav-text {
+    font-family: 'Old Standard TT', serif;
+    font-size: 3vw;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: black;
+}

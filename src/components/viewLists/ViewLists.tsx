@@ -26,16 +26,16 @@ const ViewLists = () => {
 
   if (lists.length > 0) {
     return (
-      <section>
+      <section className="body">
           <h1>Your lists</h1>
           {lists.map((list: IList, i: number) => 
-            <Link to={`/viewlist/${list.id}`} key={i}><button>{list.name}</button></Link>)
+            <Link to={`/viewlist/${list.id}`} key={i}>{list.name}</Link>)
           }
       </section>
     )
   } else {
     return (
-      <section>
+      <section className="body">
         <h1>You currently have no lists</h1>
       </section>
     )
