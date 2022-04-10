@@ -1,5 +1,37 @@
+@import '../../styles/spacing';
+@import '../../styles/font';
+
 .view-lists {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+    margin-top: $big-space;
+    display: grid;
+    grid-auto-rows: 7vh;
+    width: 40vw;
+    padding-left: 20vw;
+}
+
+.view-lists > h1 {
+    @include sub-heading;
+    font-weight: 400;
+}
+
+.view-lists > a {
+    text-transform: capitalize;
+    font-style: italic;
+    font-size: 1.5rem;
+}
+
+.view-lists > a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .view-lists {
+        width: 80vw;
+        justify-self: center;
+        justify-items: center;
+        border: 1px dashed greenyellow;
+        padding-top: $big-space;
+        padding: 0;
+        display: grid;
+    }   
 }

@@ -18,8 +18,8 @@
 
 @media (max-width: 768px) {
   .App {
-    width: 100vh;
-    height: 100%;
+    // width: 100vh;
+    // height: 100%;
     grid-template-rows: [header-row] 20vh [nav-row] 15vh [body-row] 65vh [end];
   }
 }

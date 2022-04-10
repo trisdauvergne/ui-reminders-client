@@ -1,0 +1,15 @@
+.list-item {
+    display: grid;
+    grid-template-columns: [lists] 30vw [listinfo] 60vw;
+}
+
+.list-item__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.list-item__btns > button {
+    color: red;
+}
+

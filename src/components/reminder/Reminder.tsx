@@ -51,7 +51,7 @@ const Reminder = (reminder: IReminder) => {
     return (
         <section>
             <p className={reminder.completed ? 'completed' : ''}>{reminder.description}</p>
-            <p>{reminder.completed ? 'Done' : 'Not done'}</p>
+            {/* <p>{reminder.completed ? 'Done' : 'Not done'}</p> */}
             <button onClick={changeStatus}>{!reminder.completed ? 'Done' : 'Undo'}</button>
             <button onClick={deleteReminder}>Delete reminder</button>
         </section>
