@@ -36,7 +36,7 @@ const CreateList = () => {
     };
 
     return (
-        <section className="body create-list">
+        <section className="create-list">
             {/* <h2>CREATE A LIST</h2> */}
             <form className="create-list__form" onSubmit={(e) => createListObject(e)}>
                 <label>Name</label>

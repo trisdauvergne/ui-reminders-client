@@ -12,7 +12,7 @@ import {
 import {
     saveListToState,
     selectSavedList,
-    addListsToState
+    addListsToState,
 } from '../../redux/listsSlice';
 import {
     selectViewMoreModal,
@@ -21,6 +21,7 @@ import {
     changeViewMoreModalVisibility } from '../../redux/modalSlice';
 import ModalAddReminder from '../modalAddReminder/ModalAddReminder';
 import ModalViewMore from '../modalViewMore/ModalViewMore';
+import ViewLists from '../viewLists/ViewLists';
 
 const NewListItem = () => {
     const dispatch = useDispatch();
@@ -38,7 +39,7 @@ const NewListItem = () => {
             const listData = res.data[0];
             dispatch(saveListToState(listData));
         });
-    }, [addReminderModal]);
+    }, [addReminderModal, id]);
 
     const showAddReminderModal = () => {
         dispatch(changeReminderModalVisibility(true));
@@ -49,7 +50,6 @@ const NewListItem = () => {
     };
 
     const refreshPage = async () => {
-        console.log('in refresh page');
         await axios.get(`${host}/lists`)
             .then(res => {
                 const listData = res.data;
@@ -58,7 +58,6 @@ const NewListItem = () => {
     };
 
     const deleteList = async () => {
-        console.log('in deleteList', list, `${host}/${list.id}`);
         await axios.delete(`${host}/lists/${list.id}`)
             .then(() => {
                 console.log('List deleted');
@@ -69,7 +68,8 @@ const NewListItem = () => {
 
     if (list) {
         return (
-            <section className="body">
+            <section className="">
+                <ViewLists />
                 {addReminderModal && <ModalAddReminder />}
                 {viewMoreModal && <ModalViewMore />}
                 <h1>{list.name}</h1>

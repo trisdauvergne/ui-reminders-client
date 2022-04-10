@@ -35,7 +35,7 @@ export const ListsSlice = createSlice({
         addListsToState: (state, action: PayloadAction<any>) => {
             state.initialListsState.lists = action.payload
         },
-        clearListState: (state) => {
+        clearListsState: (state) => {
             state.initialListsState.lists = [];
         },
         saveListToState: (state, action: PayloadAction<IList>) => {
@@ -46,7 +46,7 @@ export const ListsSlice = createSlice({
 
 export const {
     addListsToState,
-    clearListState,
+    clearListsState,
     saveListToState
 } = ListsSlice.actions;
 
