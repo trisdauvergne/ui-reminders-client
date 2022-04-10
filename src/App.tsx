@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import './App.css';
+import './App.scss';
 import CreateList from './components/createList/CreateList';
 import Header from './components/header/Header';
 import Navbar from './components/navbar/Navbar';

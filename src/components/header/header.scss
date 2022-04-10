@@ -1,0 +1,11 @@
+@import '../../styles/font';
+
+.header {
+    @include header-style;
+}
+
+@media (max-width: 425px) {
+    .header {
+      font-size: 20vw;
+    }
+  }
