@@ -1,4 +1,7 @@
-import{ useEffect } from 'react';
+import {
+    useEffect,
+    useState
+} from 'react';
 import axios from 'axios';
 import { host } from '../../utils/config';
 import {
@@ -18,7 +21,7 @@ import {
     selectViewMoreModal,
     selectReminderModal,
     changeReminderModalVisibility,
-    // changeViewMoreModalVisibility
+    changeViewMoreModalVisibility,
 } from '../../redux/modalSlice';
 import ModalAddReminder from '../modalAddReminder/ModalAddReminder';
 import ModalViewMore from '../modalViewMore/ModalViewMore';
@@ -28,6 +31,9 @@ import './listitem.scss';
 import Reminder from '../reminder/Reminder';
 
 const NewListItem = () => {
+    const [ width, setWidth ] = useState(window.innerWidth); ///////////
+    const breakPoint = 768; ///////////
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -38,6 +44,10 @@ const NewListItem = () => {
     const addReminderModal = useSelector(selectReminderModal);
 
     useEffect(() => {
+        window.addEventListener('resize', () => setWidth(window.innerWidth))
+    }, []);
+
+    useEffect(() => {
         axios.get(`${host}/lists/${id}`)
         .then(res => {
             const listData = res.data[0];
@@ -46,12 +56,9 @@ const NewListItem = () => {
     }, [addReminderModal, id]);
 
     const showAddReminderModal = () => {
+        console.log('in show add reminder from modal');
         dispatch(changeReminderModalVisibility(true));
     };
-
-    // const showViewMoreModal = () => {
-    //     dispatch(changeViewMoreModalVisibility(true));
-    // };
 
     const refreshPage = async () => {
         await axios.get(`${host}/lists`)
@@ -70,7 +77,11 @@ const NewListItem = () => {
         navigate('/viewlists');
     };
 
-    if (list) {
+    const closeViewMoreModal = () => {
+        navigate('/viewlists');
+    }; 
+
+    if (list && width > breakPoint) {
         return (
             <section className="list-item">
                 <ViewLists />
@@ -84,8 +95,28 @@ const NewListItem = () => {
                         <button onClick={deleteList}>Delete list</button>
                     </div>
                     {list.reminders && list.reminders.length > 0 ? list.reminders.map((reminder: IReminder, i: number) => <Reminder key={i} {...reminder} />) : 'This list has no reminders'}
-                    {/* <button onClick={showViewMoreModal}>View more</button> */}
                 </div>
+            </section>
+        )
+    } else if (list && width < breakPoint) {
+        return (
+        <section className="list-item">
+                <ViewLists />
+                {!addReminderModal &&
+                    <div className="modal">
+                    <h1>{list.name}</h1>
+                        <button onClick={closeViewMoreModal}>Close modal</button>
+                        <p>Description: {list.description}</p>
+                        <div className='list-item__btns'>
+                            <button onClick={showAddReminderModal}>Add a reminder</button>
+                            <button onClick={deleteList}>Delete list</button>
+                        </div>
+                        {list.reminders && list.reminders.length > 0 && list.reminders.map((reminder: IReminder, i: number) => 
+                            <Reminder key={i} {...reminder} />
+                        )}
+                    </div>
+                }
+                {addReminderModal && <ModalAddReminder />}
             </section>
         )
     } else {
@@ -98,4 +129,4 @@ const NewListItem = () => {
     }
 }
 
-export default NewListItem
+export default NewListItem;

@@ -4,7 +4,9 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import { Provider } from 'react-redux';
+import {
+  Provider,
+ } from 'react-redux';
 import store from './redux/store';
 import './App.scss';
 import CreateList from './components/createList/CreateList';
@@ -17,7 +19,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <div className="App">
+        <div className='App'>
           <Header />
           <Navbar />
           <Routes>
