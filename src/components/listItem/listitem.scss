@@ -1,3 +1,5 @@
+@import '../../styles/spacing';
+
 .list-item {
     display: grid;
     grid-template-columns: [lists] 30vw [listinfo] 60vw;
@@ -11,5 +13,13 @@
 
 .list-item__btns > button {
     color: red;
+}
+
+@media (max-width: 768px) {
+    .list-item {
+        width: 80vw;
+        grid-template-columns: 80vw;
+        justify-self: center;
+    }   
 }
 
