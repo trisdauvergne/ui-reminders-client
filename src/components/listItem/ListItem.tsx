@@ -40,6 +40,8 @@ const NewListItem = () => {
     const list = useSelector(selectSavedList);
     const addReminderModal = useSelector(selectReminderModal);
 
+    console.log(list);
+
     useEffect(() => {
         window.addEventListener('resize', () => setWidth(window.innerWidth))
     }, []);
@@ -87,12 +89,13 @@ const NewListItem = () => {
                     <h1>{list.name}</h1>
                     <h3>{list.description}</h3>
                     <div className='list-item__btns'>
-                        <button onClick={filterReminders}>{!remindersFiltered ? 'Hide completed reminders' : 'Show all reminders'}</button>
+                        {list.reminders && list.reminders.length != 0 && <button onClick={filterReminders}>{!remindersFiltered ? 'Hide completed reminders' : 'Show all reminders'}</button>}
                         <button onClick={showAddReminderModal}>Add a reminder</button>
                         <button onClick={deleteList}>Delete list</button>
                     </div>
                     {!remindersFiltered && list.reminders && list.reminders.length > 0 && list.reminders.map((reminder: IReminder, i: number) => <Reminder key={i} {...reminder} />)}
                     {remindersFiltered && list.reminders && list.reminders.length > 0 && list.reminders.map((reminder: IReminder, i: number) => !reminder.completed && <Reminder key={i} {...reminder} />)}
+                    {list.reminders && list.reminders.length == 0 && <p>You currently have no reminders in this list.</p>}
                 </div>
             </section>
         )

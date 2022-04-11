@@ -39,11 +39,9 @@
     margin-bottom: $big-space;
 }
 
-// @media (max-width: 768px) {
-//     .list-item__btns > button {
-//         margin-bottom: $small-space;
-//     }
-// }
+.list-item__content > p {
+    margin-top: $big-space;
+}
 
 @media (max-width: 768px) {
     .list-item {
