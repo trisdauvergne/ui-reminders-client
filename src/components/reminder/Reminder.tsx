@@ -16,7 +16,6 @@ const Reminder = (reminder: IReminder) => {
     const refreshList = async () => {
         await axios.get(`${host}/lists/${listId}`)
             .then(res => {
-                // console.log('in refresh list', res.data);
                 const updatedList = res.data[0];
                 dispatch(saveListToState(updatedList));
             })
@@ -24,7 +23,6 @@ const Reminder = (reminder: IReminder) => {
 
     const markAsDone = async () => {
         await axios.post(`${host}/reminders/completed/${reminderId}`, { listId })
-            // .then(res => console.log('in markasdone', res.data))
         refreshList();
     };
 
@@ -44,14 +42,12 @@ const Reminder = (reminder: IReminder) => {
     const deleteReminder = async () => {
         console.log('in delete reminder');
         await axios.post(`${host}/reminders/delete/${reminderId}`, { listId })
-            // .then(res => console.log(`Reminder with ID ${res.data} deleted`))
         refreshList();
     };
 
     return (
-        <section>
-            <p className={reminder.completed ? 'completed' : ''}>{reminder.description}</p>
-            {/* <p>{reminder.completed ? 'Done' : 'Not done'}</p> */}
+        <section className={reminder.completed ? 'reminder reminder--grey' : 'reminder'}>
+            <p className={reminder.completed ? 'reminder--line-through' : ''}>{reminder.description}</p>
             <button onClick={changeStatus}>{!reminder.completed ? 'Done' : 'Undo'}</button>
             <button onClick={deleteReminder}>Delete reminder</button>
         </section>

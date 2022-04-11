@@ -20,6 +20,10 @@
     font-size: 3vw;
     text-transform: uppercase;
     margin-bottom: $small-space;
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+    }
 }
 
 @mixin body-text {
@@ -35,4 +39,15 @@
     border-radius: 30px;
     border: 1px solid lightgray;
     padding: 0.25rem $small-space;
+    margin: 0 $small-space;
+
+    @media (max-width: 768px) {
+        padding: 0.15rem $small-space;
+        font-size: 16px;
+    }
+
+    @media (max-width: 375px) {
+        margin: 0 0.5rem;
+        font-size: 16px;
+    }
 }

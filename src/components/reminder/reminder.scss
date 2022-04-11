@@ -1,3 +1,17 @@
-.completed {
+@import '../../styles/spacing';
+
+.reminder {
+    width: 90%;
+    border: 1px solid lightgray;
+    margin-top: $big-space;
+    padding: $small-space 0;
+}
+
+.reminder--grey {
+    background-color: rgb(244, 244, 244);
+}
+
+.reminder--line-through {
     text-decoration: line-through;
 }
+

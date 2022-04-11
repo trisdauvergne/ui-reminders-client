@@ -21,7 +21,6 @@ import {
     selectViewMoreModal,
     selectReminderModal,
     changeReminderModalVisibility,
-    changeViewMoreModalVisibility,
 } from '../../redux/modalSlice';
 import ModalAddReminder from '../modalAddReminder/ModalAddReminder';
 import ModalViewMore from '../modalViewMore/ModalViewMore';
@@ -31,8 +30,8 @@ import './listitem.scss';
 import Reminder from '../reminder/Reminder';
 
 const NewListItem = () => {
-    const [ width, setWidth ] = useState(window.innerWidth); ///////////
-    const breakPoint = 768; ///////////
+    const [ width, setWidth ] = useState(window.innerWidth);
+    const breakPoint = 768;
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -56,7 +55,6 @@ const NewListItem = () => {
     }, [addReminderModal, id]);
 
     const showAddReminderModal = () => {
-        console.log('in show add reminder from modal');
         dispatch(changeReminderModalVisibility(true));
     };
 
@@ -98,15 +96,15 @@ const NewListItem = () => {
                 </div>
             </section>
         )
-    } else if (list && width < breakPoint) {
+    } else if (list && width <= breakPoint) {
         return (
         <section className="list-item">
                 <ViewLists />
                 {!addReminderModal &&
                     <div className="modal">
-                    <h1>{list.name}</h1>
                         <button onClick={closeViewMoreModal}>Close modal</button>
-                        <p>Description: {list.description}</p>
+                        <h1>{list.name}</h1>
+                        <p>{list.description}</p>
                         <div className='list-item__btns'>
                             <button onClick={showAddReminderModal}>Add a reminder</button>
                             <button onClick={deleteList}>Delete list</button>

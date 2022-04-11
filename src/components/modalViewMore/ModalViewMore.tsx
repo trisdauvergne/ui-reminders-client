@@ -1,5 +1,4 @@
 import React from 'react';
-import '../modal/modal.scss';
 import {
     useDispatch,
     useSelector
@@ -24,8 +23,8 @@ const ModalViewMore = () => {
 
     return (
         <div className="modal">
-            <h1>{list.name}</h1>
             <button onClick={closeViewMoreModal}>Close modal</button>
+            <h1>{list.name}</h1>
             <p>Description: {list.description}</p>
             {list.reminders && list.reminders.length > 0 && list.reminders.map((reminder: IReminder, i: number) => 
                 <Reminder key={i} {...reminder} />

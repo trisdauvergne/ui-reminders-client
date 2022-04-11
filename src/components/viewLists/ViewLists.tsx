@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {
   useEffect,
-  useState
+  // useState
 } from 'react';
 import {
   Link
@@ -13,33 +13,25 @@ import {
 import {
   selectLists,
   addListsToState,
-  saveListToState
+  // saveListToState
 } from '../../redux/listsSlice';
-import {
-  selectViewMoreModal,
-  changeViewMoreModalVisibility
-} from '../../redux/modalSlice';
+// import {
+//   selectViewMoreModal,
+//   changeViewMoreModalVisibility
+// } from '../../redux/modalSlice';
 import { host } from '../../utils/config';
-// import ModalViewMore from '../modalViewMore/ModalViewMore';
 import { IList } from '../../interfaces/List';
 import './viewlists.scss';
 
 const ViewLists = () => {
-  // const [ width, setWidth ] = useState(window.innerWidth);
   const lists = useSelector(selectLists);
-  const viewMoreModal = useSelector(selectViewMoreModal);
+  // const viewMoreModal = useSelector(selectViewMoreModal);
   const dispatch = useDispatch();
 
-  // const breakPoint = 768;
-
-  const showViewMoreModal = (list: IList) => {
-    dispatch(saveListToState(list));
-    dispatch(changeViewMoreModalVisibility(true));
-  };
-
-  // useEffect(() => {
-  //   window.addEventListener('resize', () => setWidth(window.innerWidth))
-  // }, []);
+  // const showViewMoreModal = (list: IList) => {
+  //   dispatch(saveListToState(list));
+  //   dispatch(changeViewMoreModalVisibility(true));
+  // };
 
   useEffect(() => {
     axios.get(`${host}/lists`)

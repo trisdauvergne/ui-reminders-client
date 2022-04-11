@@ -1,7 +1,10 @@
 import {
     FormEvent,
-    useState
+    useState,
 } from 'react';
+import {
+    useNavigate
+} from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import {
     useSelector,
@@ -9,7 +12,6 @@ import {
 } from 'react-redux';
 import {
     changeReminderModalVisibility,
-    changeViewMoreModalVisibility,
 } from '../../redux/modalSlice';
 import {
     addListsToState,
@@ -18,10 +20,10 @@ import {
 import { IReminder } from '../../interfaces/Reminder';
 import axios from 'axios';
 import { host } from '../../utils/config';
-import '../modal/modal.scss';
 
 const ModalAddReminder = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     
     const [ reminder, setReminder ] = useState('');
 
@@ -38,7 +40,7 @@ const ModalAddReminder = () => {
                 dispatch(addListsToState(listData));
             })
         closeAddReminderModal();
-        dispatch(changeViewMoreModalVisibility(true));
+        navigate(`/viewlist/${list.id}`);
       };
 
     const sendReminderToBackEnd = async (reminderToAdd: IReminder) => {
@@ -64,9 +66,8 @@ const ModalAddReminder = () => {
 
     return (
         <div className="modal">
-            <h1>Add reminder to list name</h1>
-            <p>List ID</p>
-            <button onClick={closeAddReminderModal}>Close modal</button>
+            <button onClick={closeAddReminderModal}>Back to list</button>
+            <h1>Add a reminder to {list.name}</h1>
             <form onSubmit={createReminderObject}>
                 <label>Description</label>
                 <p>Describe your reminder</p>
