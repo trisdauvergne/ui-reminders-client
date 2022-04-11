@@ -45,9 +45,6 @@ const ModalAddReminder = () => {
 
     const sendReminderToBackEnd = async (reminderToAdd: IReminder) => {
         await axios.post(`${host}/reminders/${list.id}`, reminderToAdd)
-            .then(res => {
-                console.log('reminder added', res.data)
-            })
         refreshPage();
         closeAddReminderModal();
     };

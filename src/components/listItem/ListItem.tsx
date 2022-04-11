@@ -40,8 +40,6 @@ const NewListItem = () => {
     const list = useSelector(selectSavedList);
     const addReminderModal = useSelector(selectReminderModal);
 
-    console.log(list);
-
     useEffect(() => {
         window.addEventListener('resize', () => setWidth(window.innerWidth))
     }, []);

@@ -16,9 +16,6 @@ const CreateList = () => {
 
     const sendListToBackEnd = async ( completedList: IList ) => {
         await axios.post(`${host}/lists`, completedList)
-            .then((res) => {
-                console.log('item added', res.data);
-            });
         navigate('/viewlists');
     };
 
@@ -35,7 +32,7 @@ const CreateList = () => {
             setListName('');
             setListDescription('');
         } else {
-            alert('Please check you have typed a name and description in the boxes');
+            alert('Please check you have typed both a name and description in the boxes');
         }
     };
 
