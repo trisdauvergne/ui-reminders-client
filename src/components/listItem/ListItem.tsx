@@ -45,6 +45,7 @@ const NewListItem = () => {
     }, []);
 
     useEffect(() => {
+        setRemindersFiltered(false);
         axios.get(`${host}/lists/${id}`)
         .then(res => {
             const listData = res.data[0];
