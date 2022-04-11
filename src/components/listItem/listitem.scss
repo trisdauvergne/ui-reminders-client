@@ -3,7 +3,19 @@
 
 .list-item {
     display: grid;
-    grid-template-columns: [lists] 40vw [listinfo] 45vw;
+    grid-template-columns: [lists] 40vw [listinfo] 55vw;
+    column-gap: $small-space;
+}
+
+.list-item__btns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.list-item__btns > button {
+    margin: 0 $smallest-space;
 }
 
 .list-item__content {
@@ -27,11 +39,17 @@
     margin-bottom: $big-space;
 }
 
+// @media (max-width: 768px) {
+//     .list-item__btns > button {
+//         margin-bottom: $small-space;
+//     }
+// }
+
 @media (max-width: 768px) {
     .list-item {
         width: 80vw;
         grid-template-columns: 80vw;
         justify-self: center;
-    }   
+    }
 }
 

@@ -30,6 +30,7 @@ import Reminder from '../reminder/Reminder';
 const NewListItem = () => {
     const [ width, setWidth ] = useState(window.innerWidth);
     const breakPoint = 768;
+    const [ remindersFiltered, setRemindersFiltered ] = useState(false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -65,9 +66,6 @@ const NewListItem = () => {
 
     const deleteList = async () => {
         await axios.delete(`${host}/lists/${list.id}`)
-            .then(() => {
-                console.log('List deleted');
-            });
         refreshPage();
         navigate('/viewlists');
     };
@@ -75,6 +73,10 @@ const NewListItem = () => {
     const closeModal = () => {
         navigate('/viewlists');
     }; 
+
+    const filterReminders = () => {
+        setRemindersFiltered(!remindersFiltered);
+    };
 
     if (list && width > breakPoint) {
         return (
@@ -85,10 +87,12 @@ const NewListItem = () => {
                     <h1>{list.name}</h1>
                     <h3>{list.description}</h3>
                     <div className='list-item__btns'>
+                        <button onClick={filterReminders}>{!remindersFiltered ? 'Hide completed reminders' : 'Show all reminders'}</button>
                         <button onClick={showAddReminderModal}>Add a reminder</button>
                         <button onClick={deleteList}>Delete list</button>
                     </div>
-                    {list.reminders && list.reminders.length > 0 ? list.reminders.map((reminder: IReminder, i: number) => <Reminder key={i} {...reminder} />) : 'This list has no reminders'}
+                    {!remindersFiltered && list.reminders && list.reminders.length > 0 && list.reminders.map((reminder: IReminder, i: number) => <Reminder key={i} {...reminder} />)}
+                    {remindersFiltered && list.reminders && list.reminders.length > 0 && list.reminders.map((reminder: IReminder, i: number) => !reminder.completed && <Reminder key={i} {...reminder} />)}
                 </div>
             </section>
         )
@@ -102,12 +106,14 @@ const NewListItem = () => {
                         <h1>{list.name}</h1>
                         <p>{list.description}</p>
                         <div className='list-item__btns'>
+                            <button onClick={filterReminders}>{!remindersFiltered ? 'Hide completed reminders' : 'Show all reminders'}</button>
                             <button onClick={showAddReminderModal}>Add a reminder</button>
                             <button onClick={deleteList}>Delete list</button>
                         </div>
-                        {list.reminders && list.reminders.length > 0 && list.reminders.map((reminder: IReminder, i: number) => 
+                        {!remindersFiltered && list.reminders && list.reminders.length > 0 && list.reminders.map((reminder: IReminder, i: number) => 
                             <Reminder key={i} {...reminder} />
                         )}
+                        {remindersFiltered && list.reminders && list.reminders.length > 0 && list.reminders.map((reminder: IReminder, i: number) => !reminder.completed && <Reminder key={i} {...reminder} />)}
                     </div>
                 }
                 {addReminderModal && <ModalAddReminder />}
