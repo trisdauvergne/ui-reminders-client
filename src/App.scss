@@ -78,6 +78,7 @@ button:hover {
 
 .modal > h1 {
   @include sub-heading;
+  border-bottom: 1px solid black;
 }
 
 .modal > button, .modal > p {

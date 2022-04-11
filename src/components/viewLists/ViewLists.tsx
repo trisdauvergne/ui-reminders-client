@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {
   useEffect,
-  // useState
 } from 'react';
 import {
   Link
@@ -13,25 +12,14 @@ import {
 import {
   selectLists,
   addListsToState,
-  // saveListToState
 } from '../../redux/listsSlice';
-// import {
-//   selectViewMoreModal,
-//   changeViewMoreModalVisibility
-// } from '../../redux/modalSlice';
 import { host } from '../../utils/config';
 import { IList } from '../../interfaces/List';
 import './viewlists.scss';
 
 const ViewLists = () => {
   const lists = useSelector(selectLists);
-  // const viewMoreModal = useSelector(selectViewMoreModal);
   const dispatch = useDispatch();
-
-  // const showViewMoreModal = (list: IList) => {
-  //   dispatch(saveListToState(list));
-  //   dispatch(changeViewMoreModalVisibility(true));
-  // };
 
   useEffect(() => {
     axios.get(`${host}/lists`)

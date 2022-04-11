@@ -18,12 +18,10 @@ import {
     addListsToState,
 } from '../../redux/listsSlice';
 import {
-    selectViewMoreModal,
     selectReminderModal,
     changeReminderModalVisibility,
 } from '../../redux/modalSlice';
 import ModalAddReminder from '../modalAddReminder/ModalAddReminder';
-import ModalViewMore from '../modalViewMore/ModalViewMore';
 import { IReminder } from '../../interfaces/Reminder';
 import ViewLists from '../viewLists/ViewLists';
 import './listitem.scss';
@@ -39,7 +37,6 @@ const NewListItem = () => {
     const { id } = useParams();
     
     const list = useSelector(selectSavedList);
-    const viewMoreModal = useSelector(selectViewMoreModal);
     const addReminderModal = useSelector(selectReminderModal);
 
     useEffect(() => {
@@ -75,7 +72,7 @@ const NewListItem = () => {
         navigate('/viewlists');
     };
 
-    const closeViewMoreModal = () => {
+    const closeModal = () => {
         navigate('/viewlists');
     }; 
 
@@ -85,7 +82,6 @@ const NewListItem = () => {
                 <ViewLists />
                 <div className='list-item__content'>
                     {addReminderModal && <ModalAddReminder />}
-                    {viewMoreModal && <ModalViewMore />}
                     <h1>{list.name}</h1>
                     <h3>{list.description}</h3>
                     <div className='list-item__btns'>
@@ -102,7 +98,7 @@ const NewListItem = () => {
                 <ViewLists />
                 {!addReminderModal &&
                     <div className="modal">
-                        <button onClick={closeViewMoreModal}>Close modal</button>
+                        <button onClick={closeModal}>Close modal</button>
                         <h1>{list.name}</h1>
                         <p>{list.description}</p>
                         <div className='list-item__btns'>
