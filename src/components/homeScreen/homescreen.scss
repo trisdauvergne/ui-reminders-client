@@ -1,0 +1,16 @@
+@import '../../styles/spacing';
+
+.home-screen {
+    margin-top: $big-space;
+    height: 20vh;
+    display: grid;
+    justify-items: center;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.home-screen-btns {
+    width: 30vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
