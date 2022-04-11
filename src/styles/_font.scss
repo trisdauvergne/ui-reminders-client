@@ -35,7 +35,7 @@
     font-family: 'Old Standard TT', serif;
     font-style: italic;
     background-color: transparent;
-    font-size: 3vw;
+    font-size: 18px;
     border-radius: 30px;
     border: 1px solid lightgray;
     padding: 0.25rem $small-space;
@@ -48,6 +48,5 @@
 
     @media (max-width: 375px) {
         margin: 0 0.5rem;
-        font-size: 16px;
     }
 }

@@ -1,17 +1,27 @@
 @import '../../styles/spacing';
+@import '../../styles/font';
 
 .reminder {
+    display: grid;
+    grid-template-rows: [name] 1fr [buttons] 1fr;
+    align-items: center;
+    justify-items: center;
     width: 90%;
     border: 1px solid lightgray;
     margin-top: $big-space;
     padding: $small-space 0;
 }
 
+.reminder > p {
+    margin-bottom: $small-space;
+}
+
 .reminder--grey {
     background-color: rgb(244, 244, 244);
 }
 
-.reminder--line-through {
+.reminder-txt--line-through {
     text-decoration: line-through;
 }
+
 
