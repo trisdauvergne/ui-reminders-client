@@ -55,13 +55,17 @@ const ModalAddReminder = () => {
     const createReminderObject = (e: FormEvent) => {
         e.preventDefault();
         const id = uuidv4().replace(/-/g, "");
-        const reminderToAdd: IReminder = {
-            description: reminder,
-            id,
-            completed: false,
-            notes: []
-        };
-        sendReminderToBackEnd(reminderToAdd);
+        if (reminder !== ' ') {
+            const reminderToAdd: IReminder = {
+                description: reminder,
+                id,
+                completed: false,
+                notes: []
+            };
+            sendReminderToBackEnd(reminderToAdd);
+        } else {
+            alert('Please check you have typed a description into the box');
+        }
     };
 
     return (
@@ -75,6 +79,7 @@ const ModalAddReminder = () => {
                 name="reminder"
                 onChange={e => setReminder(e.target.value)}
                 value={reminder}
+                required
                 />
                 <button type="submit">Add reminder</button>
             </form>

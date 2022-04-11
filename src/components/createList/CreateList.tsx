@@ -25,19 +25,22 @@ const CreateList = () => {
     const createListObject = (e: FormEvent) => {
         e.preventDefault();
         const id = uuidv4().replace(/-/g, "");
-        const listToAdd: IList = {
-            name: listName,
-            description: listDescription,
-            id,
-        };
-        sendListToBackEnd(listToAdd);
-        setListName('');
-        setListDescription('');
+        if (listName && listDescription !== ' ') {
+            const listToAdd: IList = {
+                name: listName,
+                description: listDescription,
+                id,
+            };
+            sendListToBackEnd(listToAdd);
+            setListName('');
+            setListDescription('');
+        } else {
+            alert('Please check you have typed a name and description in the boxes');
+        }
     };
 
     return (
         <section className="create-list">
-            {/* <h2>CREATE A LIST</h2> */}
             <form className="create-list__form" onSubmit={(e) => createListObject(e)}>
                 <label>Name</label>
                 <p>What would you like to name your list?</p>
@@ -46,6 +49,7 @@ const CreateList = () => {
                     name="list_name"
                     onChange={e => setListName(e.target.value)}
                     value={listName}
+                    required
                 />
                 <br />
                 <label>Description</label>
@@ -55,6 +59,7 @@ const CreateList = () => {
                     name="list_description"
                     onChange={e => setListDescription(e.target.value)}
                     value={listDescription}
+                    required
                 />
                 <br />
                 <button type="submit">Create list</button>
