@@ -59,7 +59,7 @@ button:hover {
 }
 
 .modal {
-  padding-top: $big-space;
+  padding: $big-space 0;
   position: fixed;
   display: flex;
   flex-direction: column;
