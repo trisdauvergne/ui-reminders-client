@@ -68,6 +68,10 @@ _Your task is to build an app for ordering Pizza with mocked APIs from the Apiar
 - I intentionally kept styling quite minal, but took inspiration from classic textbooks which display textual information clearly
 - I installed [sass](https://sass-lang.com/) as this would allow me to use variables for consistency such as spacing and fonts
 
+#### Socket.IO
+
+- Realised that it would be more challenging for the socket io event to be broadcast in one component but listened for in another component without glitches
+
 ## Challenges
 
 - I tried to avoid using type 'any', however have used it twice in the app - both in the state management when trying to assign a type to the payload which would change the state

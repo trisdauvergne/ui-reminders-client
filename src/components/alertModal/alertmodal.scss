@@ -1,0 +1,19 @@
+@import '../../styles/spacing';
+
+.alert-modal {
+    padding: $big-space;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    height: 50vh;
+    left: 25vw;
+    top: 25vh;
+    right: 25vw;
+    bottom: 25vh;
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 2px 2px lightgray;
+    overflow-y: scroll;
+}

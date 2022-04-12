@@ -1,6 +1,7 @@
 import {
     useState,
     FormEvent,
+    useEffect
 } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
@@ -15,7 +16,7 @@ const CreateList = () => {
     const navigate = useNavigate();
 
     const sendListToBackEnd = async ( completedList: IList ) => {
-        await axios.post(`${host}/lists`, completedList)
+        await axios.post(`${host}/lists`, completedList);
         navigate('/viewlists');
     };
 

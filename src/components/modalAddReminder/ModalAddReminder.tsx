@@ -1,6 +1,7 @@
 import {
     FormEvent,
     useState,
+    useEffect
 } from 'react';
 import {
     useNavigate
@@ -20,6 +21,7 @@ import {
 import { IReminder } from '../../interfaces/Reminder';
 import axios from 'axios';
 import { host } from '../../utils/config';
+import { HandleReminderAlert } from '../../utils/socketroutes';
 
 const ModalAddReminder = () => {
     const dispatch = useDispatch();
@@ -44,7 +46,8 @@ const ModalAddReminder = () => {
       };
 
     const sendReminderToBackEnd = async (reminderToAdd: IReminder) => {
-        await axios.post(`${host}/reminders/${list.id}`, reminderToAdd)
+        await axios.post(`${host}/reminders/${list.id}`, reminderToAdd);
+        HandleReminderAlert(reminderToAdd, list.name);
         refreshPage();
         closeAddReminderModal();
     };
