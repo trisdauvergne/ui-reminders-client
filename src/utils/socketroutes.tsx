@@ -40,6 +40,42 @@ export const handleDeleteAlert = (list: string, refreshPage: Function) => {
     })
 }
 
+export const handleCompleteAlert = (reminder: string, refreshList: Function, status: boolean) => {
+    console.log('in handlecomplete', reminder);
+    if (status) {
+        socket.emit('send_completed', {
+            message: `A reminder called '${reminder}', has been marked as complete`
+        });
+        socket.on('receive_completed', (data) => {
+            const message = data.message
+            alert(message);
+            refreshList();
+        })
+    } 
+    if (!status) {
+        socket.emit('send_incomplete', {
+            message: `A reminder called '${reminder}', has been marked as incomplete`
+        });
+        socket.on('receive_incomplete', (data) => {
+            const message = data.message
+            alert(message);
+            refreshList();
+        })
+    }
+}
+
+export const deleteReminderAlert = (reminder: string, refreshList: Function) => {
+    console.log('in deleteReminder', reminder)
+    socket.emit('send_deletereminder', {
+        message: `A reminder called '${reminder}', has been deleted`
+    });
+    socket.on('receive_deletereminder', (data) => {
+        const message = data.message
+        alert(message);
+        refreshList();
+    })
+}
+
 //     socket.emit('send_reminder', {
 //         message: `The reminder '${reminder.description}', has been added to the list '${list}'`
 //     });

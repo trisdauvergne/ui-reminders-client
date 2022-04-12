@@ -5,6 +5,10 @@ import { useDispatch } from 'react-redux';
 import { host } from '../../utils/config';
 import { saveListToState } from '../../redux/listsSlice';
 import { IReminder } from '../../interfaces/Reminder';
+import {
+    handleCompleteAlert,
+    deleteReminderAlert
+} from '../../utils/socketroutes';
 import './reminder.scss';
 
 const Reminder = (reminder: IReminder) => {
@@ -22,12 +26,16 @@ const Reminder = (reminder: IReminder) => {
     };
 
     const markAsDone = async () => {
+        const status = true;
         await axios.post(`${host}/reminders/completed/${reminderId}`, { listId })
+        handleCompleteAlert(reminder.description, refreshList, status);
         refreshList();
     };
 
     const markAsToDo = async () => {
+        const status = false;
         await axios.post(`${host}/reminders/incomplete/${reminderId}`, { listId })
+        handleCompleteAlert(reminder.description, refreshList, status);
         refreshList();
     };
 
@@ -41,6 +49,7 @@ const Reminder = (reminder: IReminder) => {
 
     const deleteReminder = async () => {
         await axios.post(`${host}/reminders/delete/${reminderId}`, { listId })
+        deleteReminderAlert(reminder.description, refreshList);
         refreshList();
     };
 
