@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { host } from '../../utils/config';
 import { IList } from '../../interfaces/List';
 import { useNavigate } from 'react-router-dom';
+import { handleListAlert } from '../../utils/socketroutes';
 import './createlist.scss';
 
 const CreateList = () => {
@@ -15,8 +16,14 @@ const CreateList = () => {
     const [ listDescription, setListDescription ] = useState<string>('');
     const navigate = useNavigate();
 
+    const goToLists = () => {
+        navigate('/');
+        navigate(`/viewlists`);
+    }
+
     const sendListToBackEnd = async ( completedList: IList ) => {
         await axios.post(`${host}/lists`, completedList);
+        handleListAlert(completedList, goToLists);
         navigate('/viewlists');
     };
 
