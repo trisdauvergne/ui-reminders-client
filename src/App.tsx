@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+// import React, { useEffect } from 'react';
 import {
   BrowserRouter,
   Routes,
   Route,
 } from "react-router-dom";
 import {
-  Provider,
+  // Provider,
+  useSelector
  } from 'react-redux';
-import store from './redux/store';
+// import store from './redux/store';
 import './App.scss';
 import CreateList from './components/createList/CreateList';
 import Header from './components/header/Header';
@@ -15,12 +16,17 @@ import Navbar from './components/navbar/Navbar';
 import ViewLists from './components/viewLists/ViewLists';
 import ListItem from './components/listItem/ListItem';
 import HomeScreen from './components/homeScreen/HomeScreen';
+import AlertModal from './components/alertModal/AlertModal';
+import { selectAlertModal } from './redux/modalSlice';
 
 const App = () => {
+  const alertModalVisible = useSelector(selectAlertModal);
+
   return (
-    <Provider store={store}>
+    // <Provider store={store}>
       <BrowserRouter>
         <div className='App'>
+          {alertModalVisible && <AlertModal />}
           <Header />
           <Navbar />
           <Routes>
@@ -31,7 +37,7 @@ const App = () => {
           </Routes>
         </div>
       </BrowserRouter>
-    </Provider>
+    // </Provider>
   )
 }
 
