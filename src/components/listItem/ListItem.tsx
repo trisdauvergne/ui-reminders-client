@@ -26,6 +26,9 @@ import { IReminder } from '../../interfaces/Reminder';
 import ViewLists from '../viewLists/ViewLists';
 import './listitem.scss';
 import Reminder from '../reminder/Reminder';
+import {
+    handleDeleteAlert
+} from '../../utils/socketroutes';
 
 const NewListItem = () => {
     const [ width, setWidth ] = useState(window.innerWidth);
@@ -67,6 +70,7 @@ const NewListItem = () => {
 
     const deleteList = async () => {
         await axios.delete(`${host}/lists/${list.id}`)
+        handleDeleteAlert(list.name, refreshPage);
         refreshPage();
         navigate('/viewlists');
     };

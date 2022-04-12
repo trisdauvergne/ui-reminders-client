@@ -3,7 +3,7 @@ import { host } from './config';
 import { IReminder } from '../interfaces/Reminder';
 import { IList } from '../interfaces/List';
 
-const socket = io(host);
+export const socket = io(host);
 
 export const HandleReminderAlert = (reminder: IReminder, list: string, refreshPage: Function) => {
     socket.emit('send_reminder', {
@@ -27,6 +27,19 @@ export const handleListAlert = (list: IList, goToLists: Function) => {
         goToLists();
     })
 }
+
+export const handleDeleteAlert = (list: string, refreshPage: Function) => {
+    console.log('in handle delete');
+    socket.emit('send_deletelist', {
+        message: `A list called '${list}', has just been deleted`
+    });
+    socket.on('receive_deletelist', (data) => {
+        const message = data.message
+        alert(message);
+        refreshPage();
+    })
+}
+
 //     socket.emit('send_reminder', {
 //         message: `The reminder '${reminder.description}', has been added to the list '${list}'`
 //     });
