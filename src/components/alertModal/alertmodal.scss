@@ -7,13 +7,30 @@
     flex-direction: column;
     text-align: center;
     align-items: center;
-    height: 50vh;
+    justify-items: center;
+    height: 30vh;
     left: 25vw;
     top: 25vh;
     right: 25vw;
     bottom: 25vh;
-    background-color: white;
+    background-color: lightgoldenrodyellow;
     border: 1px solid black;
     box-shadow: 2px 2px lightgray;
     overflow-y: scroll;
+}
+
+.alert-modal > p {
+    margin-bottom: $big-space;
+}
+
+@media (max-width: 768px) {
+    .alert-modal {
+        top: $small-space;
+        width: 90vw;
+        margin: auto;
+        left: 0;
+        right: 0;
+        background-color: lightgoldenrodyellow;
+        z-index: 1;
+    }
 }

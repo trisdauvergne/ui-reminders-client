@@ -20,6 +20,8 @@ import {
 import {
     selectReminderModal,
     changeReminderModalVisibility,
+    saveAlertMessage,
+    changeAlertModalVisibility
 } from '../../redux/modalSlice';
 import ModalAddReminder from '../modalAddReminder/ModalAddReminder';
 import { IReminder } from '../../interfaces/Reminder';
@@ -30,7 +32,7 @@ import {
     handleDeleteAlert
 } from '../../utils/socketroutes';
 
-const NewListItem = () => {
+const ListItem = () => {
     const [ width, setWidth ] = useState(window.innerWidth);
     const breakPoint = 768;
     const [ remindersFiltered, setRemindersFiltered ] = useState(false);
@@ -68,9 +70,16 @@ const NewListItem = () => {
             })
     };
 
+    const showAlertModal = (alert: string) => {
+        console.log('in show alert modal', alert);
+        refreshPage();
+        dispatch(saveAlertMessage(alert));
+        dispatch(changeAlertModalVisibility(true));
+    };
+
     const deleteList = async () => {
         await axios.delete(`${host}/lists/${list.id}`)
-        handleDeleteAlert(list.name, refreshPage);
+        handleDeleteAlert(list.name, showAlertModal);
         await refreshPage();
         navigate('/viewlists');
     };
@@ -135,4 +144,4 @@ const NewListItem = () => {
     }
 }
 
-export default NewListItem;
+export default ListItem;

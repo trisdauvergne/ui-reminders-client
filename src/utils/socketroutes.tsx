@@ -5,43 +5,40 @@ import { IList } from '../interfaces/List';
 
 export const socket = io(host);
 
-export const HandleReminderAlert = (reminder: IReminder, list: string, refreshPage: Function) => {
+export const HandleReminderAlert = (reminder: IReminder, list: string, showAlertModal: Function) => {
     socket.emit('send_reminder', {
         message: `The reminder '${reminder.description}', has been added to the list '${list}'`
     });
     socket.on('receive_alert', (data) => {
         const message = data.message;
         console.log('New reminder broadcast: ', message);
-        alert(message);
-        refreshPage();
+        showAlertModal(message);
     })
 }
 
-export const handleListAlert = (list: IList, goToLists: Function) => {
+export const handleListAlert = (list: IList, showAlertModal: Function) => {
     socket.emit('send_newlist', {
         message: `A new list called '${list.name}', has just been created`
     });
     socket.on('receive_alert', (data) => {
         const message = data.message;
         console.log('New list broadcast: ', message);
-        alert(message);
-        goToLists();
+        showAlertModal(message);
     })
 }
 
-export const handleDeleteAlert = (list: string, refreshPage: Function) => {
+export const handleDeleteAlert = (list: string, showAlertModal: Function) => {
     socket.emit('send_deletelist', {
         message: `A list called '${list}', has just been deleted`
     });
     socket.on('receive_alert', (data) => {
         const message = data.message;
         console.log('Deleted list broadcast: ', message);
-        alert(message);
-        refreshPage();
+        showAlertModal(message);
     })
 }
 
-export const handleCompleteAlert = (reminder: string, refreshList: Function, status: boolean) => {
+export const handleCompleteAlert = (reminder: string, status: boolean, showAlertModal: Function) => {
     if (status) {
         socket.emit('send_completed', {
             message: `A reminder called '${reminder}', has been marked as complete`
@@ -49,8 +46,7 @@ export const handleCompleteAlert = (reminder: string, refreshList: Function, sta
         socket.on('receive_alert', (data) => {
             const message = data.message;
             console.log('Completed reminder broadcast: ', message);
-            alert(message);
-            refreshList();
+            showAlertModal(message);
         });
     } 
     if (!status) {
@@ -60,20 +56,18 @@ export const handleCompleteAlert = (reminder: string, refreshList: Function, sta
         socket.on('receive_alert', (data) => {
             const message = data.message;
             console.log('Incomplete reminder broadcast: ', message);
-            alert(message);
-            refreshList();
+            showAlertModal(message);
         });
     }
 }
 
-export const deleteReminderAlert = (reminder: string, refreshList: Function) => {
+export const deleteReminderAlert = (reminder: string, showAlertModal: Function) => {
     socket.emit('send_deletereminder', {
         message: `A reminder called '${reminder}', has been deleted`
     });
     socket.on('receive_alert', (data) => {
         const message = data.message;
         console.log('Deleted reminder broadcast: ', message);
-        alert(message);
-        refreshList();
+        showAlertModal(message);
     })
 }

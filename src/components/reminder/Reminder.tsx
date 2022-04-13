@@ -4,6 +4,10 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { host } from '../../utils/config';
 import { saveListToState } from '../../redux/listsSlice';
+import {
+    saveAlertMessage,
+    changeAlertModalVisibility
+} from '../../redux/modalSlice';
 import { IReminder } from '../../interfaces/Reminder';
 import {
     handleCompleteAlert,
@@ -25,17 +29,24 @@ const Reminder = (reminder: IReminder) => {
             })
     };
 
+    const showAlertModal = (alert: string) => {
+        console.log('in show alert modal', alert);
+        refreshList();
+        dispatch(saveAlertMessage(alert));
+        dispatch(changeAlertModalVisibility(true));
+    };
+
     const markAsDone = async () => {
         const status = true;
         await axios.post(`${host}/reminders/completed/${reminderId}`, { listId })
-        handleCompleteAlert(reminder.description, refreshList, status);
+        handleCompleteAlert(reminder.description, status, showAlertModal);
         refreshList();
     };
 
     const markAsToDo = async () => {
         const status = false;
         await axios.post(`${host}/reminders/incomplete/${reminderId}`, { listId })
-        handleCompleteAlert(reminder.description, refreshList, status);
+        handleCompleteAlert(reminder.description, status, showAlertModal);
         refreshList();
     };
 
@@ -49,7 +60,7 @@ const Reminder = (reminder: IReminder) => {
 
     const deleteReminder = async () => {
         await axios.post(`${host}/reminders/delete/${reminderId}`, { listId })
-        deleteReminderAlert(reminder.description, refreshList);
+        deleteReminderAlert(reminder.description, showAlertModal);
         refreshList();
     };
 

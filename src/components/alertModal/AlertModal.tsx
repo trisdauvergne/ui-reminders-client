@@ -20,7 +20,7 @@ const AlertModal = () => {
 
     return (
         <div className='alert-modal'>
-            <h1>{alertMessage}</h1>
+            <p>{alertMessage}</p>
             <button onClick={closeAlert}>Close</button>
         </div>
     )

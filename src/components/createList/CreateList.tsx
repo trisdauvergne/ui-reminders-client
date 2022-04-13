@@ -3,6 +3,11 @@ import {
     FormEvent,
     useEffect
 } from 'react';
+import { useDispatch } from 'react-redux';
+import {
+    saveAlertMessage,
+    changeAlertModalVisibility
+} from '../../redux/modalSlice';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { host } from '../../utils/config';
@@ -15,15 +20,23 @@ const CreateList = () => {
     const [ listName, setListName ] = useState<string>('');
     const [ listDescription, setListDescription ] = useState<string>('');
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const goToLists = () => {
         navigate('/');
         navigate(`/viewlists`);
-    }
+    };
+
+    const showAlertModal = (alert: string) => {
+        console.log('in show alert modal', alert);
+        goToLists();
+        dispatch(saveAlertMessage(alert));
+        dispatch(changeAlertModalVisibility(true));
+    };
 
     const sendListToBackEnd = async ( completedList: IList ) => {
         await axios.post(`${host}/lists`, completedList);
-        handleListAlert(completedList, goToLists);
+        handleListAlert(completedList, showAlertModal);
         navigate('/viewlists');
     };
 

@@ -14,6 +14,7 @@ import {
 import {
     changeAlertModalVisibility,
     changeReminderModalVisibility,
+    saveAlertMessage
 } from '../../redux/modalSlice';
 import {
     addListsToState,
@@ -47,9 +48,16 @@ const ModalAddReminder = () => {
         navigate(`/viewlist/${list.id}`);
       };
 
+    const showAlertModal = (alert: string) => {
+        console.log('in show alert modal', alert);
+        refreshPage();
+        dispatch(saveAlertMessage(alert));
+        dispatch(changeAlertModalVisibility(true));
+    };
+
     const sendReminderToBackEnd = async (reminderToAdd: IReminder) => {
         await axios.post(`${host}/reminders/${list.id}`, reminderToAdd);
-        HandleReminderAlert(reminderToAdd, list.name, refreshPage);
+        HandleReminderAlert(reminderToAdd, list.name, showAlertModal);
         refreshPage();
         closeAddReminderModal();
     };
