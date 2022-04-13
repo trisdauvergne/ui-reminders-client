@@ -71,7 +71,7 @@ const NewListItem = () => {
     const deleteList = async () => {
         await axios.delete(`${host}/lists/${list.id}`)
         handleDeleteAlert(list.name, refreshPage);
-        refreshPage();
+        await refreshPage();
         navigate('/viewlists');
     };
 
