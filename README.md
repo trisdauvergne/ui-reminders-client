@@ -68,6 +68,12 @@ _Your task is to build an app for ordering Pizza with mocked APIs from the Apiar
 - I intentionally kept styling quite minal, but took inspiration from classic textbooks which display textual information clearly
 - I installed [sass](https://sass-lang.com/) as this would allow me to use variables for consistency such as spacing and fonts
 
+#### Socket.IO
+
+- When the first requirement was met, I moved on to trying to make the app collaborative in real time. I realised that how and where this functionality should be implemented had not been fully thought through and it proved difficult to decide how and where it could be utilised at a later stage
+- In principle the process of using socket.io was straightforward, however I realised that I had multiple components which would need to be connected and it could get very messy
+- I decided to move all of the socket related functionality into a separate file, with functions being called directly from components when events were performed
+
 ## Challenges
 
 - I tried to avoid using type 'any', however have used it twice in the app - both in the state management when trying to assign a type to the payload which would change the state
@@ -80,6 +86,7 @@ _Your task is to build an app for ordering Pizza with mocked APIs from the Apiar
 - Referencing collections better
 - List Item file performs too many functions and needs to be separated
 - Ensuring the correct types are used
+- Planning around how real-time collaboration could be utilised and where
 
 ## Packages used
 

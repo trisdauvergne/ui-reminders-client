@@ -1,6 +1,7 @@
 import {
     FormEvent,
     useState,
+    useEffect
 } from 'react';
 import {
     useNavigate
@@ -11,7 +12,9 @@ import {
     useDispatch
 } from 'react-redux';
 import {
+    changeAlertModalVisibility,
     changeReminderModalVisibility,
+    saveAlertMessage
 } from '../../redux/modalSlice';
 import {
     addListsToState,
@@ -20,6 +23,7 @@ import {
 import { IReminder } from '../../interfaces/Reminder';
 import axios from 'axios';
 import { host } from '../../utils/config';
+import { HandleReminderAlert } from '../../utils/socketroutes';
 
 const ModalAddReminder = () => {
     const dispatch = useDispatch();
@@ -35,16 +39,25 @@ const ModalAddReminder = () => {
 
     const refreshPage = async () => {
         await axios.get(`${host}/lists`)
-            .then(res => {
-                const listData = res.data;
-                dispatch(addListsToState(listData));
-            })
+        .then(res => {
+            const listData = res.data;
+            dispatch(addListsToState(listData));
+        })
+        navigate(`/viewlists`);
         closeAddReminderModal();
         navigate(`/viewlist/${list.id}`);
       };
 
+    const showAlertModal = (alert: string) => {
+        console.log('in show alert modal', alert);
+        refreshPage();
+        dispatch(saveAlertMessage(alert));
+        dispatch(changeAlertModalVisibility(true));
+    };
+
     const sendReminderToBackEnd = async (reminderToAdd: IReminder) => {
-        await axios.post(`${host}/reminders/${list.id}`, reminderToAdd)
+        await axios.post(`${host}/reminders/${list.id}`, reminderToAdd);
+        HandleReminderAlert(reminderToAdd, list.name, showAlertModal);
         refreshPage();
         closeAddReminderModal();
     };

@@ -6,7 +6,7 @@ const Header = () => {
 
   const loadHomeScreen = () => {
     navigate('/');
-  }
+  };
 
   return (
     <header>
