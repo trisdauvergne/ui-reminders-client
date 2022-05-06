@@ -2,8 +2,6 @@
 
 The project has been deployed [here](https://ui-reminders.netlify.app/)
 
-## Technical Requirements
-
 ## Implemented user stories
 
 - ​I as a user can create to-do items, such as a grocery list
