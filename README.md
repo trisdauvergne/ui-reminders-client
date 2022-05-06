@@ -2,18 +2,6 @@
 
 The project has been deployed [here](https://ui-reminders.netlify.app/)
 
-## Code Test Brief
-
-_The code challenge is a “Pizza Ordering App”_
-
-_Your task is to build an app for ordering Pizza with mocked APIs from the Apiary specification using React._
-
-- _Show a list of pizza restaurants and have the closest to your current location at the top_
-- _From the list enter into a detailed view for that restaurant and display the available menu for that location._
-- _Let the users add items from the menu into a shopping cart_
-- _Place the order_
-- _Display the orders state_
-
 ## Technical Requirements
 
 ## Implemented user stories
